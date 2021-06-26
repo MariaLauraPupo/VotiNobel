@@ -40,6 +40,7 @@ public class PopulateDB {
 		System.out.println("Voti inseriti");
 		System.out.println(vd.getTuttiEsami());
 
-	}
-	
+	}	
+
+
 }

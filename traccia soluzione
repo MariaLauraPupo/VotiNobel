@@ -1,0 +1,68 @@
+INPUT:
+-insieme di Esame (PARTENZA)
+-numero crediti (m)
+
+OUTPUT:
+-insieme (Set) di Esame, sottoinsieme di PARTENZA, tale che:
+   * somma di Esame.crediti() == m
+   * media di Esame.voto() sia MAX
+   
+ ***APROCCIO 1 (il più stupido)***  
+ Ad ogni livello (L) della ricorsione, aggiungo un esame => problema:
+  devo decidere quale, li provo tutti
+  => simile agli anagrammi 
+  
+ -SOLUZIONE PARZIALE
+     PARZIALE = sottoinsieme di esattamente L elementi
+     
+ -GENERAZIONE SOLUZIONE PARZIALE
+     per tutti i casi che non ho ancora considerato (tutti gli esami non ancora compresi in PARZIALE):
+     * provo ad aggiungere
+     * faccio andare avanti la ricorsione
+     * faccio backtracking => torno indietro per provare nuove soluzioni
+     
+  L = 0 -> ho N scelte possibili   
+           PARZIALE = {e1}
+                L = 1
+                   PARZIALE = {e1,e2}
+                   PARZIALE = {e1,e3}
+           PARZIALE = {e2}
+                L = 1 
+                   PARZIALE = {e2,e1}
+                   PARZIALE = {e2,e3}
+           [...]
+           PARZIALE = {en}
+  
+  -CASI TERMINALI
+       
+      1) L = PARTENZA.size() (N) -> non ci sono più esami da aggiungere
+         L = N
+        Controllo soluzione parziale:
+           * se PARZIALE.sommaCrediti() == m
+             - se PARZIALE.media() > di tutte le medie viste fino ad ora -> tengo traccia di PARZIALE
+           * se PARZIALE.sommaCrediti() != m
+             - abbandono la ricorsione => non è una soluzione che mi può andare bene   
+  
+      2) PARZIALE.sommaCrediti() >= m -> supero i crediti -> mi fermo subito!
+           * se > m -> scarto parziale e non vado avanto
+           * se = m -> controllo soluzione parziale --> punto 1 
+     
+  ***APROCCIO 2 (più intelligente)***
+  -LIVELLO DELLA RICORSIONE (L)
+    -> indica quale corso sto decidendo di mettere o non mettere della soluzione
+    
+    supponiamo di avere PARTENZA = {e1, e2, e3,..., en}
+    L = 0 -> considero e1
+       * lo metto -> PARZIALE = {e1}
+            L = 1 -> considero e2
+               * lo metto -> PARZIALE = {e1,e2}
+               * non lo metto -> PARZIALE = {e1}
+       * non lo metto -> PARZIALE {}
+            L = 1 -> considero e2
+               * lo metto -> PARZIALE = {e2} 
+               * non lo metto -> PARZIALE = {}
+  
+  
+  
+  
+          
